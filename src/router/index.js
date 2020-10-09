@@ -12,8 +12,9 @@ Vue.use(VueRouter)
 // 路由规则配置
 const router = new VueRouter({
   routes: [
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
+    { path: '/', redirect: '/login' }, //网页重定向
+    { path: '/login', component: Login }, //hash(哈希值)去login页面
+    { path: '/register', component: Register }, //hash(哈希值)去register
   ],
 })
 

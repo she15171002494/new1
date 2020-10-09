@@ -24,6 +24,16 @@ Vue.component('hm-header', HmHeader)
 Vue.component('hm-logo', HmLogo)
 Vue.component('hm-button', HmButton)
 
+// 引入vant组件里面的输入框
+import { Field } from 'vant'
+
+Vue.use(Field)
+
+// 引入vant组件里面的轻提示
+import { Toast } from 'vant'
+
+Vue.use(Toast)
+
 // 构造vue实例
 new Vue({
   router,
