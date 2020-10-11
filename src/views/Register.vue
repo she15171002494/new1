@@ -34,12 +34,16 @@
     />
     <!-- button -->
     <hm-button @click.native="startRegister">注册</hm-button>
+    <!-- 链接 -->
+    <div class="login-link">
+      已有账号？去 <router-link to="/login">登录</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 // 引入axios
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   data() {
@@ -104,8 +108,8 @@ export default {
       ) {
         this.$toast.success('效验成功')
         // 发送axios 请求
-        axios
-          .post('http://localhost:3000/register', {
+        this.$axios
+          .post('/register', {
             username: this.username,
             nickname: this.nickname,
             password: this.password,
@@ -118,9 +122,19 @@ export default {
               // 提示
               this.$toast.success(message)
               // 跳转
+              // 第一种方法
+              // this.$router.push({
+              //   path: '/login',
+              //   query: {
+              //     username: this.username,
+              //     password: this.password,
+              //   },
+              // })
+
+              // 第二种方法
               this.$router.push({
-                path: '/login',
-                query: {
+                name: 'login',
+                params: {
                   username: this.username,
                   password: this.password,
                 },
@@ -138,4 +152,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+// 链接
+.login-link {
+  text-align: center;
+  font-size: 14px;
+}
+</style>

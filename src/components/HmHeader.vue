@@ -11,14 +11,14 @@
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
-<style lang='less'>
+<style lang="less">
 .hm-header {
   height: 30px;
-  border-bottom: 1px solid #ccc;
-  background-color: pink;
+  // border-bottom: 1px solid #ccc;
+  background-color: #ccc;
   font-size: 20px;
 
   display: flex;
@@ -31,7 +31,7 @@ export default {};
   .center {
     flex: 1;
     font-weight: 700;
-    background-color: green;
+    // background-color: green;
   }
 }
 </style>

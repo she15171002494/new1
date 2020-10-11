@@ -25,12 +25,16 @@
     />
     <!-- button -->
     <hm-button @click.native="startLoing">登录</hm-button>
+    <!-- 链接 -->
+    <div class="login-link">
+      没有账号？去 <router-link to="/register">注册</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 // 引入axios
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   data() {
@@ -42,7 +46,11 @@ export default {
     }
   },
   created() {
-    const { username, password } = this.$route.query
+    // 方法一  p - q
+    // const { username, password } = this.$route.query
+
+    // 方法二 n - p
+    let { username, password } = this.$route.params
     if (username && password) {
       ;(this.username = username), (this.password = password)
     }
@@ -84,8 +92,8 @@ export default {
       ) {
         this.$toast.success('效验成功')
         // 发送axios请求
-        axios
-          .post('http://localhost:3000/login', {
+        this.$axios
+          .post('/login', {
             username: this.username,
             password: this.password,
           })
@@ -94,8 +102,9 @@ export default {
             // res.data解构
             const { statusCode, message, data } = res.data
             if (statusCode === 200) {
-              // 存token
+              // 存token + id
               localStorage.setItem('token', data.token)
+              localStorage.setItem('user_id', data.user.id)
               // 提示
               this.$toast.success(message)
               // 跳转
@@ -113,4 +122,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+// 链接
+.login-link {
+  text-align: center;
+  font-size: 14px;
+}
+</style>

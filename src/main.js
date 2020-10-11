@@ -26,14 +26,41 @@ Vue.component('hm-button', HmButton)
 
 // 引入vant组件里面的输入框
 import { Field } from 'vant'
-
 Vue.use(Field)
 
 // 引入vant组件里面的轻提示
 import { Toast } from 'vant'
-
 Vue.use(Toast)
 
+// 引入vant组件里面的
+import { Cell, CellGroup } from 'vant'
+Vue.use(Cell)
+Vue.use(CellGroup)
+
+// 引入 vant 组件里面的确认弹框
+import { Dialog } from 'vant'
+Vue.use(Dialog)
+
+// 注册全局 axios
+import axios from 'axios'
+// 添加基准/基础地址
+axios.defaults.baseURL = 'http://localhost:3000'
+Vue.prototype.$axios = axios
+
+// 注册一个全局时间过滤器
+import moment from 'moment'
+Vue.filter('date', function(val, format = 'YYYY-MM-DD') {
+  return moment(val).format(format)
+})
+
+// 添加请求拦截器
+axios.interceptors.request.use(function(config) {
+  let token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = token
+  }
+  return config
+})
 // 构造vue实例
 new Vue({
   router,
