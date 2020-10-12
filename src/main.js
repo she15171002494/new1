@@ -41,6 +41,17 @@ Vue.use(CellGroup)
 import { Dialog } from 'vant'
 Vue.use(Dialog)
 
+// 单选框
+import { RadioGroup, Radio } from 'vant'
+
+Vue.use(Radio)
+Vue.use(RadioGroup)
+
+// 上传文件
+import { Uploader } from 'vant'
+
+Vue.use(Uploader)
+
 // 注册全局 axios
 import axios from 'axios'
 // 添加基准/基础地址
@@ -61,6 +72,20 @@ axios.interceptors.request.use(function(config) {
   }
   return config
 })
+
+// 添加响应拦截器
+axios.interceptors.response.use(function(res) {
+  let { statusCode, message } = res.data
+  if (statusCode === 200 && message === '用户信息验证失败') {
+    // 删除 token + id
+    localStorage.remover('token')
+    localStorage.remover('user_id')
+    // 跳转
+    this.$router.push('/login')
+  }
+  return res
+})
+
 // 构造vue实例
 new Vue({
   router,

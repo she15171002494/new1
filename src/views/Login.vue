@@ -39,8 +39,8 @@
 export default {
   data() {
     return {
-      username: '', //用户名
-      password: '', //密码
+      username: '10086', //用户名
+      password: '123', //密码
       usernameErrMsg: '', //用户名效验
       passwordErrMsg: '', //密码效验
     }
