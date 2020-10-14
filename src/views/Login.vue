@@ -39,87 +39,93 @@
 export default {
   data() {
     return {
-      username: '10086', //用户名
-      password: '123', //密码
-      usernameErrMsg: '', //用户名效验
-      passwordErrMsg: '', //密码效验
-    }
+      username: "10086", //用户名
+      password: "123", //密码
+      usernameErrMsg: "", //用户名效验
+      passwordErrMsg: "", //密码效验
+    };
   },
   created() {
     // 方法一  p - q
     // const { username, password } = this.$route.query
 
     // 方法二 n - p
-    let { username, password } = this.$route.params
+    let { username, password } = this.$route.params;
     if (username && password) {
-      ;(this.username = username), (this.password = password)
+      (this.username = username), (this.password = password);
     }
   },
   methods: {
     // 用户名效验
     checkUsername() {
-      const reg = /^1\d{3,5}$/
+      const reg = /^1\d{3,5}$/;
       if (reg.test(this.username)) {
-        this.usernameErrMsg = ''
+        this.usernameErrMsg = "";
       } else {
-        this.usernameErrMsg = '用户名格式错误'
+        this.usernameErrMsg = "用户名格式错误";
       }
       // 如果用户名为空，提示不显示
       if (!this.username) {
-        this.usernameErrMsg = ''
+        this.usernameErrMsg = "";
       }
     },
     // 密码效验
     checkPassword() {
-      const reg = /^\d{3,12}$/
+      const reg = /^\d{3,12}$/;
       if (reg.test(this.password)) {
-        this.passwordErrMsg = ''
+        this.passwordErrMsg = "";
       } else {
-        this.passwordErrMsg = '密码格式错误'
+        this.passwordErrMsg = "密码格式错误";
       }
       // 如果密码为空，提示不显示
       if (!this.password) {
-        this.passwordErrMsg = ''
+        this.passwordErrMsg = "";
       }
     },
     // 点击登录
-    startLoing() {
-      if (
-        this.username !== '' &&
-        this.password !== '' &&
-        this.usernameErrMsg === '' &&
-        this.passwordErrMsg === ''
-      ) {
-        this.$toast.success('效验成功')
-        // 发送axios请求
-        this.$axios
-          .post('/login', {
+    async startLoing() {
+      try {
+        await this.$dialog.confirm({
+          title: "提示",
+          message: "登录吗？",
+        });
+        if (
+          this.username !== "" &&
+          this.password !== "" &&
+          this.usernameErrMsg === "" &&
+          this.passwordErrMsg === ""
+        ) {
+          this.$toast.success("效验成功");
+          // 发送axios请求
+          let res = await this.$axios.post("/login", {
             username: this.username,
             password: this.password,
-          })
-          .then(res => {
-            // console.log(res)
-            // res.data解构
-            const { statusCode, message, data } = res.data
-            if (statusCode === 200) {
-              // 存token + id
-              localStorage.setItem('token', data.token)
-              localStorage.setItem('user_id', data.user.id)
-              // 提示
-              this.$toast.success(message)
-              // 跳转
-              this.$router.push('/user')
-            } else {
-              // 提示
-              this.$toast.fail(message)
-            }
-          })
-      } else {
-        this.$toast.fail('效验失败')
+          });
+
+          // console.log(res)
+          // res.data解构
+          const { statusCode, message, data } = res.data;
+          if (statusCode === 200) {
+            // 存token + id
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user_id", data.user.id);
+            // 提示
+            this.$toast.success(message);
+            // 跳转
+            this.$router.push("/user");
+          } else {
+            // 提示
+            this.$toast.fail(message);
+          }
+        } else {
+          this.$toast.fail("效验失败");
+        }
+      } catch {
+        this.$toast.fail("取消登录");
       }
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

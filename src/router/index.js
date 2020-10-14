@@ -7,6 +7,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import Edit from '../views/Edit.vue'
+import MyFollows from '../views/MyFollows.vue'
+import MyComments from '../views/MyComments.vue'
 
 // 注册
 Vue.use(VueRouter)
@@ -19,6 +21,8 @@ const router = new VueRouter({
     { path: '/register', name: 'register', component: Register }, //hash(哈希值)去register
     { path: '/user', name: 'user', component: User }, //个人中心主页
     { path: '/edit', name: 'edit', component: Edit }, //编辑资料
+    { path: '/myfollows', name: 'myfollows', component: MyFollows }, //我的关注
+    { path: '/mycomments', name: 'mycomments', component: MyComments },
   ],
 })
 

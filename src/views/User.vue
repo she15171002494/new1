@@ -19,8 +19,18 @@
     <!-- 列表 -->
     <div class="user-list">
       <van-cell-group>
-        <van-cell title="我的关注" is-link value="关注的用户" />
-        <van-cell title="我的跟帖" is-link value="跟帖/回复" />
+        <van-cell
+          @click="$router.push('/myfollows')"
+          title="我的关注"
+          is-link
+          value="关注的用户"
+        />
+        <van-cell
+          @click="$router.push('/mycomments')"
+          title="我的跟帖"
+          is-link
+          value="跟帖/回复"
+        />
         <van-cell title="我的收藏" is-link value="文档/视频" />
         <van-cell @click="$router.push('/edit')" title="设置" is-link />
         <van-cell @click="logout" title="退出" is-link />
@@ -33,12 +43,12 @@
 export default {
   data() {
     return {
-      info: '',
-    }
+      info: "",
+    };
   },
   created() {
-    let token = localStorage.getItem('token')
-    let user_id = localStorage.getItem('user_id')
+    let token = localStorage.getItem("token");
+    let user_id = localStorage.getItem("user_id");
     this.$axios
       .get(
         `/user/${user_id}`
@@ -48,36 +58,36 @@ export default {
         //   },
         // }
       )
-      .then(res => {
-        let { statusCode, message, data } = res.data
+      .then((res) => {
+        let { statusCode, message, data } = res.data;
         if (statusCode === 200) {
-          this.info = data
+          this.info = data;
         }
-      })
+      });
   },
   methods: {
     // 退出
     logout() {
       this.$dialog
         .confirm({
-          title: '温馨提示',
-          message: '您真的确认要退出吗？',
+          title: "温馨提示",
+          message: "您真的确认要退出吗？",
         })
         .then(() => {
           // 删除 token + id
-          localStorage.removeItem('token')
-          localStorage.removeItem('user_id')
+          localStorage.removeItem("token");
+          localStorage.removeItem("user_id");
           // 提示
-          this.$toast.success('退出成功')
+          this.$toast.success("退出成功");
           // 跳转
-          this.$router.push('/login')
+          this.$router.push("/login");
         })
         .catch(() => {
-          console.log('取消啦')
-        })
+          console.log("取消啦");
+        });
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

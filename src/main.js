@@ -49,8 +49,11 @@ Vue.use(RadioGroup)
 
 // 上传文件
 import { Uploader } from 'vant'
-
 Vue.use(Uploader)
+
+// list列表
+import { List } from 'vant'
+Vue.use(List)
 
 // 注册全局 axios
 import axios from 'axios'

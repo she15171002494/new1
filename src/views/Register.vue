@@ -48,108 +48,106 @@
 export default {
   data() {
     return {
-      username: '', //用户名
-      nickname: '', //昵称
-      password: '', //密码
-      usernameErrMsg: '', //用户名效验
-      nicknameErrMsg: '', //昵称效验
-      passwordErrMsg: '', //密码效验
-    }
+      username: "", //用户名
+      nickname: "", //昵称
+      password: "", //密码
+      usernameErrMsg: "", //用户名效验
+      nicknameErrMsg: "", //昵称效验
+      passwordErrMsg: "", //密码效验
+    };
   },
   methods: {
     // 用户名效验
     checkUsername() {
-      const reg = /^1\d{3,5}$/
+      const reg = /^1\d{3,5}$/;
       if (reg.test(this.username)) {
-        this.usernameErrMsg = ''
+        this.usernameErrMsg = "";
       } else {
-        this.usernameErrMsg = '用户名格式错误'
+        this.usernameErrMsg = "用户名格式错误";
       }
       // 如果用户名为空，提示不显示
       if (!this.username) {
-        this.usernameErrMsg = ''
+        this.usernameErrMsg = "";
       }
     },
     // 昵称效验
     checkNickname() {
-      const reg = /^[\u4e00-\u9fa5]{3,7}$/
+      const reg = /^[\u4e00-\u9fa5]{3,7}$/;
       if (reg.test(this.nickname)) {
-        this.nicknameErrMsg = ''
+        this.nicknameErrMsg = "";
       } else {
-        this.nicknameErrMsg = '昵称格式错误'
+        this.nicknameErrMsg = "昵称格式错误";
       }
       // 如果昵称为空，提示不显示
       if (!this.nickname) {
-        this.nicknameErrMsg = ''
+        this.nicknameErrMsg = "";
       }
     },
     // 密码效验
     checkPassword() {
-      const reg = /^\d{3,12}$/
+      const reg = /^\d{3,12}$/;
       if (reg.test(this.password)) {
-        this.passwordErrMsg = ''
+        this.passwordErrMsg = "";
       } else {
-        this.passwordErrMsg = '密码格式错误'
+        this.passwordErrMsg = "密码格式错误";
       }
       // 如果密码为空
       if (!this.password) {
-        this.passwordErrMsg = ''
+        this.passwordErrMsg = "";
       }
     },
     // 点击注册
-    startRegister() {
+    async startRegister() {
       if (
-        this.username !== '' &&
-        this.nickname !== '' &&
-        this.password !== '' &&
-        this.usernameErrMsg === '' &&
-        this.nicknameErrMsg === '' &&
-        this.passwordErrMsg === ''
+        this.username !== "" &&
+        this.nickname !== "" &&
+        this.password !== "" &&
+        this.usernameErrMsg === "" &&
+        this.nicknameErrMsg === "" &&
+        this.passwordErrMsg === ""
       ) {
-        this.$toast.success('效验成功')
+        this.$toast.success("效验成功");
         // 发送axios 请求
-        this.$axios
-          .post('/register', {
-            username: this.username,
-            nickname: this.nickname,
-            password: this.password,
-          })
-          .then(res => {
-            console.log(res)
-            // res.data解构
-            const { statusCode, message } = res.data
-            if (statusCode === 200) {
-              // 提示
-              this.$toast.success(message)
-              // 跳转
-              // 第一种方法
-              // this.$router.push({
-              //   path: '/login',
-              //   query: {
-              //     username: this.username,
-              //     password: this.password,
-              //   },
-              // })
+        let res = await this.$axios.post("/register", {
+          username: this.username,
+          nickname: this.nickname,
+          password: this.password,
+        });
 
-              // 第二种方法
-              this.$router.push({
-                name: 'login',
-                params: {
-                  username: this.username,
-                  password: this.password,
-                },
-              })
-            } else {
-              // 提示
-              this.$toast.fail(message)
-            }
-          })
+        console.log(res);
+        // res.data解构
+        const { statusCode, message } = res.data;
+        if (statusCode === 200) {
+          // 提示
+          this.$toast.success(message);
+          // 跳转
+          // 第一种方法
+          // this.$router.push({
+          //   path: '/login',
+          //   query: {
+          //     username: this.username,
+          //     password: this.password,
+          //   },
+          // })
+
+          // 第二种方法
+          this.$router.push({
+            name: "login",
+            params: {
+              username: this.username,
+              password: this.password,
+            },
+          });
+        } else {
+          // 提示
+          this.$toast.fail(message);
+        }
       } else {
-        this.$toast.success('效验失败')
+        this.$toast.success("效验失败");
       }
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

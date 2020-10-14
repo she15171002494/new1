@@ -5,7 +5,11 @@
     <!-- 头像 -->
     <div class="edit-avatar">
       <img :src="$axios.defaults.baseURL + info.head_img" alt="" />
-      <van-uploader class="afterRead" :after-read="afterRead" />
+      <van-uploader
+        class="afterRead"
+        :before-read="beforeRead"
+        :after-read="afterRead"
+      />
     </div>
     <!-- 列表 -->
     <div class="edit-list">
@@ -65,83 +69,92 @@
 export default {
   data() {
     return {
-      info: '',
-      nickname: '', //昵称
-      gender: '', //性别
+      info: "",
+      nickname: "", //昵称
+      gender: "", //性别
       showNickname: false, //昵称修改
       showGender: false, //性别修改
-    }
+    };
   },
   created() {
     // 获取数据
-    this.getEdit()
+    this.getEdit();
   },
   methods: {
     // 获取数据
     getEdit() {
-      let user_id = localStorage.getItem('user_id')
-      this.$axios.get(`/user/${user_id}`).then(res => {
-        this.info = res.data.data
-      })
+      let user_id = localStorage.getItem("user_id");
+      this.$axios.get(`/user/${user_id}`).then((res) => {
+        this.info = res.data.data;
+      });
     },
     // 点击昵称，修改框显示
     isShowNickname() {
       // 显示
-      this.showNickname = true
+      this.showNickname = true;
       // 赋值
-      this.nickname = this.info.nickname
+      this.nickname = this.info.nickname;
     },
     // 点击确认按钮，修改昵称
     confirmNickname() {
       // 判断
       if (this.nickname === this.info.nickname) {
         // 提示
-        this.$toast('新旧昵称不能一样')
-        return
+        this.$toast("新旧昵称不能一样");
+        return;
       }
       // 发送请求
-      this.my_userEdit({ nickname: this.nickname })
+      this.my_userEdit({ nickname: this.nickname });
     },
     // 点击性别，修改框出现
     isShowGender() {
       // 显示
-      this.showGender = true
+      this.showGender = true;
       // 赋值
-      this.gender = this.info.gender
+      this.gender = this.info.gender;
     },
     // 点击确定，修改性别
     confirmGender() {
       // 判断
       if (this.gender === this.info.gender) {
         // 提示
-        this.$toast('无修改')
-        return
+        this.$toast("无修改");
+        return;
       }
       // 发送请求
-      this.my_userEdit({ gender: this.gender })
+      this.my_userEdit({ gender: this.gender });
     },
     // 封装一个发送修改请求的函数
     my_userEdit(data) {
-      let user_id = localStorage.getItem('user_id')
-      this.$axios.post(`/user_update/${user_id}`, data).then(res => {
-        this.getEdit()
+      let user_id = localStorage.getItem("user_id");
+      this.$axios.post(`/user_update/${user_id}`, data).then((res) => {
+        this.getEdit();
         // 提示
-        this.$toast.success(res.data.message)
-      })
+        this.$toast.success(res.data.message);
+      });
     },
     // 上传头像
+    // 问价读取前的回调函数
+    beforeRead(data) {
+      if (data.size / 1024 > 50) {
+        this.$toast.fail("文件不能大于50k");
+        return false;
+      }
+      return true;
+    },
+    // 文件读取后的回调函数
     afterRead(data) {
       // 借用formdata 上传
-      let formdata = new FormData()
-      formdata.append('file', data.file)
+      let formdata = new FormData();
+      formdata.append("file", data.file);
 
       // 发送请求
-      this.$axios.post('/upload', formdata).then(res => {
-        this.my_userEdit({ head_img: res.data.data.url })
-      })
+      this.$axios.post("/upload", formdata).then((res) => {
+        this.my_userEdit({ head_img: res.data.data.url });
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
