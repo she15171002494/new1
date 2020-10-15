@@ -9,6 +9,8 @@ import User from '../views/User.vue'
 import Edit from '../views/Edit.vue'
 import MyFollows from '../views/MyFollows.vue'
 import MyComments from '../views/MyComments.vue'
+import MyStar from '../views/MyStar.vue'
+import Home from '../views/Home.vue'
 
 // 注册
 Vue.use(VueRouter)
@@ -22,7 +24,9 @@ const router = new VueRouter({
     { path: '/user', name: 'user', component: User }, //个人中心主页
     { path: '/edit', name: 'edit', component: Edit }, //编辑资料
     { path: '/myfollows', name: 'myfollows', component: MyFollows }, //我的关注
-    { path: '/mycomments', name: 'mycomments', component: MyComments },
+    { path: '/mycomments', name: 'mycomments', component: MyComments }, //我的跟帖
+    { path: '/mystar', name: 'mystar', component: MyStar }, //我的收藏
+    { path: '/home', name: 'name', component: Home }, //首页
   ],
 })
 

@@ -112,7 +112,7 @@ export default {
             // 提示
             this.$toast.success(message);
             // 跳转
-            this.$router.push("/user");
+            this.$router.push("/home");
           } else {
             // 提示
             this.$toast.fail(message);

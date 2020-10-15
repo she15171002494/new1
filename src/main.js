@@ -18,11 +18,13 @@ import router from './router'
 import HmHeader from './components/HmHeader.vue'
 import HmLogo from './components/HmLogo.vue'
 import HmButton from './components/HmButton.vue'
+import HmPost from './components/HmPost.vue'
 
 // 注册全局组件
 Vue.component('hm-header', HmHeader)
 Vue.component('hm-logo', HmLogo)
 Vue.component('hm-button', HmButton)
+Vue.component('hm-post', HmPost)
 
 // 引入vant组件里面的输入框
 import { Field } from 'vant'
@@ -43,7 +45,6 @@ Vue.use(Dialog)
 
 // 单选框
 import { RadioGroup, Radio } from 'vant'
-
 Vue.use(Radio)
 Vue.use(RadioGroup)
 
