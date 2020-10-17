@@ -11,7 +11,11 @@
       </div>
       <div class="buttom">
         <span>{{ list.user.nickname }}</span>
-        <span>{{ list.comments.length }}跟帖</span>
+        <span
+          >{{
+            list.comments ? list.comments.length : list.comment_length
+          }}跟帖</span
+        >
       </div>
     </div>
     <!-- 单个图片 -->
@@ -20,7 +24,11 @@
         <div class="title">后面接远程仓库的地址</div>
         <div class="buttom">
           <span>{{ list.user.nickname }}</span>
-          <span>{{ list.comments.length }}跟帖</span>
+          <span
+            >{{
+              list.comments ? list.comments.length : list.comment_length
+            }}跟帖</span
+          >
         </div>
       </div>
       <div class="right">
@@ -37,7 +45,12 @@
       </div>
       <div class="buttom">
         <span>{{ list.user.nickname }}</span>
-        <span>{{ list.comments.length }}跟帖</span>
+        <!-- <span>{{ list.comments.length }}跟帖</span> -->
+        <span
+          >{{
+            list.comments ? list.comments.length : list.comment_length
+          }}跟帖</span
+        >
       </div>
     </div>
   </div>

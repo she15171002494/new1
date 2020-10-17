@@ -56,6 +56,15 @@ Vue.use(Uploader)
 import { List } from 'vant'
 Vue.use(List)
 
+// tab 栏
+import { Tab, Tabs } from 'vant'
+Vue.use(Tab)
+Vue.use(Tabs)
+
+// 下拉刷新
+import { PullRefresh } from 'vant'
+Vue.use(PullRefresh)
+
 // 注册全局 axios
 import axios from 'axios'
 // 添加基准/基础地址
