@@ -19,12 +19,16 @@ import HmHeader from './components/HmHeader.vue'
 import HmLogo from './components/HmLogo.vue'
 import HmButton from './components/HmButton.vue'
 import HmPost from './components/HmPost.vue'
+import HmComment from './components/HmComment.vue'
+import HmFloor from './components/HmFloor.vue'
 
 // 注册全局组件
 Vue.component('hm-header', HmHeader)
 Vue.component('hm-logo', HmLogo)
 Vue.component('hm-button', HmButton)
 Vue.component('hm-post', HmPost)
+Vue.component('hm-comment', HmComment)
+Vue.component('hm-floor', HmFloor)
 
 // 引入vant组件里面的输入框
 import { Field } from 'vant'
@@ -65,6 +69,14 @@ Vue.use(Tabs)
 import { PullRefresh } from 'vant'
 Vue.use(PullRefresh)
 
+// 粘性布局
+import { Sticky } from 'vant'
+Vue.use(Sticky)
+
+// icon图标
+import { Icon } from 'vant'
+Vue.use(Icon)
+
 // 注册全局 axios
 import axios from 'axios'
 // 添加基准/基础地址
@@ -87,17 +99,17 @@ axios.interceptors.request.use(function(config) {
 })
 
 // 添加响应拦截器
-axios.interceptors.response.use(function(res) {
-  let { statusCode, message } = res.data
-  if (statusCode === 200 && message === '用户信息验证失败') {
-    // 删除 token + id
-    localStorage.remover('token')
-    localStorage.remover('user_id')
-    // 跳转
-    this.$router.push('/login')
-  }
-  return res
-})
+// axios.interceptors.response.use(function(res) {
+//   let { statusCode, message } = res.data
+//   if (statusCode === 200 && message === '用户信息验证失败') {
+//     // 删除 token + id
+//     localStorage.remover('token')
+//     localStorage.remover('user_id')
+//     // 跳转
+//     this.$router.push('/login')
+//   }
+//   return res
+// })
 
 // 构造vue实例
 new Vue({

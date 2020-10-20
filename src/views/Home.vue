@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 头部 -->
+    <div class="holder"></div>
     <div class="header">
       <div class="left">
         <i class="iconfont iconnew"></i>
@@ -15,8 +16,14 @@
         <i @click="$router.push('/user')" class="iconfont iconwode"></i>
       </div>
     </div>
+    <!-- 小三角 -->
+    <van-sticky z-index="999" :offset-top="60">
+      <div @click="fn" class="jiantou">
+        <i class="iconfont iconjiantou1"></i>
+      </div>
+    </van-sticky>
     <!-- tab栏 -->
-    <van-tabs v-model="active">
+    <van-tabs v-model="active" sticky :offset-top="60">
       <van-tab v-for="tab in tabsList" :key="tab.id" :title="tab.name">
         <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
           <van-list
@@ -27,6 +34,7 @@
             @load="onLoad"
           >
             <hm-post
+              @click.native="$router.push(`/detail/${post.id}`)"
               v-for="(post, index) in postList"
               :key="index"
               :list="post"
@@ -50,79 +58,102 @@ export default {
       pageIndex: 1, //分页页码值
       pageSize: 5, //分页一次加载的文章条数
       isRefresh: false, //下拉刷新，数据是否在加载中
-    };
+    }
   },
   created() {
     // 获取tab栏分类数据
-    this.getTabsList();
+    this.getTabsList()
   },
   methods: {
     // 获取tab栏分类数据
     async getTabsList() {
-      let res = await this.$axios.get("/category");
-      this.tabsList = res.data.data;
-      console.log(this.tabsList);
+      let res = await this.$axios.get('/category')
+      this.tabsList = res.data.data
+      console.log(this.tabsList)
       // 加载文章列表
-      this.getPostList(this.tabsList[this.active].id);
+      this.getPostList(this.tabsList[this.active].id)
     },
     // 获取post列表数据
     async getPostList(id) {
-      let res = await this.$axios.get("/post", {
+      let res = await this.$axios.get('/post', {
         params: {
           category: id,
           pageIndex: this.pageIndex,
           pageSize: this.pageSize,
         },
-      });
-      this.postList = [...this.postList, ...res.data.data];
-      this.loading = false;
-      this.isRefresh = false;
+      })
+      this.postList = [...this.postList, ...res.data.data]
+      this.loading = false
+      this.isRefresh = false
       if (res.data.data.length < 5) {
-        this.finished = true;
+        this.finished = true
       }
     },
     // 下拉刷新
     onRefresh() {
-      this.postList = [];
-      this.pageIndex = 1;
+      this.postList = []
+      this.pageIndex = 1
 
-      this.finished = false;
-      this.loading = true;
-      this.getPostList(this.tabsList[this.active].id);
+      this.finished = false
+      this.loading = true
+      this.getPostList(this.tabsList[this.active].id)
     },
     // 分页加载
     onLoad() {
-      this.pageIndex++;
-      this.getPostList(this.tabsList[this.active].id);
+      this.pageIndex++
+      this.getPostList(this.tabsList[this.active].id)
+    },
+    // 三角箭头
+    fn() {
+      console.log('点击了三角箭头')
     },
   },
   // 监听
   watch: {
     active(newActive) {
       // console.log(newActive);
-      this.postList = [];
-      this.pageIndex = 1;
+      this.postList = []
+      this.pageIndex = 1
 
-      this.finished = false;
-      this.loading = true;
-      this.getPostList(this.tabsList[newActive].id);
+      this.finished = false
+      this.loading = true
+      this.getPostList(this.tabsList[newActive].id)
     },
   },
-};
+}
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
+// 占位
+.holder {
+  height: 60px;
+}
+// 头部
 .header {
+  position: fixed;
   padding: 10px;
+  top: 0;
+  display: flex;
+  width: 100%;
+  z-index: 999;
   height: 40px;
   background: red;
-  display: flex;
+  height: 60px;
   align-items: center;
   color: #fff;
+  box-sizing: border-box;
   .left {
+    text-align: center;
     width: 60px;
     i {
       font-size: 50px;
+    }
+  }
+  .right {
+    width: 40px;
+    text-align: center;
+    i {
+      font-size: 30px;
     }
   }
   .center {
@@ -138,12 +169,26 @@ export default {
       }
     }
   }
-  .right {
-    width: 50px;
-    text-align: center;
-    i {
-      font-size: 30px;
-    }
+}
+
+// tab栏
+/deep/ .van-tabs__nav {
+  background: pink;
+  margin-right: 30px;
+}
+
+// 三角箭头
+.jiantou {
+  position: absolute;
+  right: 0;
+  width: 31px;
+  height: 44px;
+  background-color: pink;
+  text-align: center;
+  line-height: 44px;
+  z-index: 999;
+  i {
+    font-size: 24px;
   }
 }
 </style>

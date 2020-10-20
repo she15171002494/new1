@@ -11,6 +11,7 @@ import MyFollows from '../views/MyFollows.vue'
 import MyComments from '../views/MyComments.vue'
 import MyStar from '../views/MyStar.vue'
 import Home from '../views/Home.vue'
+import Detail from '../views/Detail.vue'
 
 // 注册
 Vue.use(VueRouter)
@@ -27,6 +28,7 @@ const router = new VueRouter({
     { path: '/mycomments', name: 'mycomments', component: MyComments }, //我的跟帖
     { path: '/mystar', name: 'mystar', component: MyStar }, //我的收藏
     { path: '/home', name: 'name', component: Home }, //首页
+    { path: '/detail/:id', name: 'detail', component: Detail },
   ],
 })
 
