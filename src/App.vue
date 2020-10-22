@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <!-- 指定出口 -->
-    <router-view></router-view>
+    <keep-alive include="home">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

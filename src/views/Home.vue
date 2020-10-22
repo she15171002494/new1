@@ -18,7 +18,7 @@
     </div>
     <!-- 小三角 -->
     <van-sticky z-index="999" :offset-top="60">
-      <div @click="fn" class="jiantou">
+      <div @click="$router.push('/navlist')" class="jiantou">
         <i class="iconfont iconjiantou1"></i>
       </div>
     </van-sticky>
@@ -48,6 +48,7 @@
 
 <script>
 export default {
+  name: 'home',
   data() {
     return {
       active: 1, //tab栏索引值

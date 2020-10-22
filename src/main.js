@@ -89,6 +89,10 @@ Vue.filter('date', function(val, format = 'YYYY-MM-DD') {
   return moment(val).format(format)
 })
 
+// bus 事件总线
+let bus = new Vue()
+Vue.prototype.$bus = bus
+
 // 添加请求拦截器
 axios.interceptors.request.use(function(config) {
   let token = localStorage.getItem('token')

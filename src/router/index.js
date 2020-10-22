@@ -12,6 +12,7 @@ import MyComments from '../views/MyComments.vue'
 import MyStar from '../views/MyStar.vue'
 import Home from '../views/Home.vue'
 import Detail from '../views/Detail.vue'
+import Navlist from '../views/Navlist.vue'
 
 // 注册
 Vue.use(VueRouter)
@@ -29,6 +30,7 @@ const router = new VueRouter({
     { path: '/mystar', name: 'mystar', component: MyStar }, //我的收藏
     { path: '/home', name: 'name', component: Home }, //首页
     { path: '/detail/:id', name: 'detail', component: Detail },
+    { path: '/navlist', name: 'navlist', component: Navlist }, //栏目列表页
   ],
 })
 

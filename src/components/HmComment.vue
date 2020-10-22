@@ -10,7 +10,7 @@
           <div class="nickname">{{ comment.user.nickname }}</div>
           <div class="date">{{ comment.create_date }}</div>
         </div>
-        <div class="right">回复</div>
+        <div class="right" @click="reply">回复</div>
       </div>
       <!-- 楼层 -->
       <hm-floor
@@ -28,12 +28,19 @@
 export default {
   props: ["comment"],
   methods: {
+    // 获取数据
     getCount(num, parent) {
       if (parent.parent) {
         return this.getCount(num + 1, parent.parent);
       } else {
         return num;
       }
+    },
+    // 点击回复
+    reply() {
+      console.log("我是回复");
+      console.log(this.comment);
+      this.$bus.$emit("reply", this.comment.id, this.comment.user.nickname);
     },
   },
 };
