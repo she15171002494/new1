@@ -83,6 +83,10 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000'
 Vue.prototype.$axios = axios
 
+// 注册全局 lodash  (debounce防抖函数)
+import _ from 'lodash'
+Vue.prototype._ = _
+
 // 注册一个全局时间过滤器
 import moment from 'moment'
 Vue.filter('date', function(val, format = 'YYYY-MM-DD') {

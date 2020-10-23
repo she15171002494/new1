@@ -13,6 +13,7 @@ import MyStar from '../views/MyStar.vue'
 import Home from '../views/Home.vue'
 import Detail from '../views/Detail.vue'
 import Navlist from '../views/Navlist.vue'
+import Search from '../views/Search.vue'
 
 // 注册
 Vue.use(VueRouter)
@@ -31,6 +32,7 @@ const router = new VueRouter({
     { path: '/home', name: 'name', component: Home }, //首页
     { path: '/detail/:id', name: 'detail', component: Detail },
     { path: '/navlist', name: 'navlist', component: Navlist }, //栏目列表页
+    { path: '/search', name: 'search', component: Search }, //搜索页面
   ],
 })
 

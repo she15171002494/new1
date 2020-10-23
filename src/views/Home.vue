@@ -7,7 +7,7 @@
         <i class="iconfont iconnew"></i>
       </div>
       <div class="center">
-        <div class="search">
+        <div @click="$router.push('/search')" class="search">
           <i class="iconfont iconsearch"></i>
           <span>搜索新闻</span>
         </div>
@@ -65,9 +65,30 @@ export default {
     // 获取tab栏分类数据
     this.getTabsList()
   },
+  activated() {
+    // 从本地获取
+    let dellist = JSON.parse(localStorage.getItem('dellist'))
+    if (dellist) {
+      this.tabsList = dellist
+      this.active = 1
+      this.getPostList(this.tabsList[this.active].id)
+
+      return
+    }
+  },
   methods: {
     // 获取tab栏分类数据
     async getTabsList() {
+      // 从本地获取
+      let dellist = JSON.parse(localStorage.getItem('dellist'))
+      if (dellist) {
+        this.tabsList = dellist
+        this.active = 1
+        this.getPostList(this.tabsList[this.active].id)
+
+        return
+      }
+
       let res = await this.$axios.get('/category')
       this.tabsList = res.data.data
       console.log(this.tabsList)
